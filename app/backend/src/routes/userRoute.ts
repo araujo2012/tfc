@@ -9,3 +9,6 @@ const userRoute = Router();
 const userController = new UserController(new UserService(UserModel));
 
 userRoute.post('/', checkEmail, checkPassword, userController.login);
+userRoute.get('/validate', userController.getRole);
+
+export default userRoute;
