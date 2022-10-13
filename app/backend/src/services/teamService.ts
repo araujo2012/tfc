@@ -7,6 +7,11 @@ class teamService {
     const teams = await this.model.findAll();
     return teams;
   }
+
+  async getTeamByid(id: number) {
+    const team = await this.model.findOne({ where: { id } });
+    return team;
+  }
 }
 
 export default teamService;
