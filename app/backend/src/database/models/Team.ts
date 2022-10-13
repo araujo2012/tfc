@@ -4,7 +4,7 @@ import db from '.';
 
 class Team extends Model {
   id: number;
-  team_name: string;
+  teamName: string;
 }
 
 Team.init({
@@ -27,7 +27,7 @@ Team.init({
 });
 
 /**
-  * `Workaround` para aplicar as associations em TS: 
+  * `Workaround` para aplicar as associations em TS:
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
 
