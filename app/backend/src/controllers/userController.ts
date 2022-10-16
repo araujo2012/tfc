@@ -5,8 +5,9 @@ class userController {
   constructor(private service: userService) {}
 
   async login(req: Request, res: Response) {
-    const { email } = req.body;
-    const result = await this.service.login(email);
+    const { email, password } = req.body;
+    const result = await this.service.login(email, password);
+    if (!result) return res.status(401).json({ message: 'Incorrect email or password' });
     return res.status(200).json(result);
   }
 
