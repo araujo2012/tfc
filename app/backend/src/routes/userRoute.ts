@@ -9,7 +9,8 @@ const userRoute = Router();
 const userService = new UserService(UserModel);
 const userController = new UserController(userService);
 
-userRoute.post('/', checkEmail, checkPassword, (req, res) => userController.login(req, res));
-userRoute.get('/validate', (req, res) => userController.getRole(req, res));
+userRoute
+  .post('/', checkEmail, checkPassword, (req, res, next) => userController.login(req, res, next));
+userRoute.get('/validate', (req, res, next) => userController.getRole(req, res, next));
 
 export default userRoute;
