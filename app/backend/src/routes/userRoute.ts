@@ -6,9 +6,10 @@ import { checkEmail, checkPassword } from '../middlewares/userMidleware';
 
 const userRoute = Router();
 
-const userController = new UserController(new UserService(UserModel));
+const userService = new UserService(UserModel);
+const userController = new UserController(userService);
 
-userRoute.post('/', checkEmail, checkPassword, userController.login);
-userRoute.get('/validate', userController.getRole);
+userRoute.post('/', checkEmail, checkPassword, (req, res) => userController.login(req, res));
+userRoute.get('/validate', (req, res) => userController.getRole(req, res));
 
 export default userRoute;
