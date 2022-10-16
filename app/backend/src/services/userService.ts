@@ -1,7 +1,7 @@
 import { compareSync } from 'bcryptjs';
-import createToken from '../helpers/token';
+import { createToken } from '../helpers/token';
 import userModel from '../database/models/User';
-import decodeToken from '../helpers/authorization';
+import IToken from '../interfaces/tokenContent';
 
 class userService {
   constructor(private model: typeof userModel) {}
@@ -15,10 +15,13 @@ class userService {
     return { token };
   }
 
-  async getRole(token: string) {
-    const user = decodeToken(token);
-    const checkUser = await this.model.findOne({ where: { email: user.email } });
-    return { role: user.role, validToken: (user === checkUser) };
+  async getRole(user: IToken) {
+    const validUser = await this.model.findOne({ where: { email: user.email } });
+    if (!validUser) return undefined;
+    const { id, email, username, role, password } = validUser;
+    const checkUser = { id, email, username, role, password };
+    if (user !== checkUser) return undefined;
+    return { role };
   }
 }
 
