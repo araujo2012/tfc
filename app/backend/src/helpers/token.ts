@@ -8,4 +8,12 @@ const createToken = (content: IToken) => {
   return token;
 };
 
-export default createToken;
+const decodeToken = (token: string) => {
+  const user = jwt.verify(token, process.env.JWT_SECRET as string);
+  return user;
+};
+
+export {
+  createToken,
+  decodeToken,
+};
