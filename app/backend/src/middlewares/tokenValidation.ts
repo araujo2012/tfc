@@ -5,7 +5,7 @@ import { decodeToken } from '../helpers/token';
 const isValidToken = (req: IRequestWithUser, res: Response, next: NextFunction) => {
   const { authorization } = req.headers;
   if (!authorization) return res.status(400).json('missing authorization');
-  decodeToken(req, authorization);
+  decodeToken(req, res, authorization);
   next();
 };
 
