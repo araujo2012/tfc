@@ -7,4 +7,12 @@ type IMatch = {
   inProgress: number,
 };
 
-export default IMatch;
+type IGoals = {
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+};
+
+export {
+  IMatch,
+  IGoals,
+};
