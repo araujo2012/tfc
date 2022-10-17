@@ -18,5 +18,9 @@ leaderboardRoute.get(
   '/away',
   (req, res, next) => leaderboardController.leaderboardAway(req, res, next),
 );
+leaderboardRoute.get(
+  '',
+  (req, res, next) => leaderboardController.leaderboard(req, res, next),
+);
 
 export default leaderboardRoute;
