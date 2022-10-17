@@ -1,16 +1,17 @@
 import * as jwt from 'jsonwebtoken';
+import IRequestWithUser from '../interfaces/request';
 import IToken from '../interfaces/tokenContent';
 
 const createToken = (content: IToken) => {
-  const { id, username, role, email, password } = content;
+  const { username, role, email } = content;
   const token = jwt
-    .sign({ id, username, role, email, password }, process.env.JWT_SECRET || 'jwt_secret');
+    .sign({ username, role, email }, process.env.JWT_SECRET || 'jwt_secret');
   return token;
 };
 
-const decodeToken = (token: string) => {
-  const user = jwt.verify(token, process.env.JWT_SECRET as string);
-  return user;
+const decodeToken = (req: IRequestWithUser, token: string) => {
+  const user = jwt.verify(token, process.env.JWT_SECRET as string) as IToken;
+  req.user = user;
 };
 
 export {

@@ -18,9 +18,10 @@ class userService {
   async getRole(user: IToken) {
     const validUser = await this.model.findOne({ where: { email: user.email } });
     if (!validUser) return undefined;
-    const { id, email, username, role, password } = validUser;
-    const checkUser = { id, email, username, role, password };
-    if (user !== checkUser) return undefined;
+    const { email, username, role } = validUser;
+    if (user.email !== email) return undefined;
+    if (user.username !== username) return undefined;
+    if (user.role !== role) return undefined;
     return { role };
   }
 }

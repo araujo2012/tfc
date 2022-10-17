@@ -1,7 +1,7 @@
 interface IToken {
-  id: number,
+  id?: number,
   email: string,
-  password: string,
+  password?: string,
   role: string,
   username: string,
 }

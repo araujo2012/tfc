@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import userService from '../services/userService';
-import { decodeToken } from '../helpers/token';
+import IRequestWithUser from '../interfaces/request';
 
 class userController {
   constructor(private service: userService) {}
@@ -16,12 +16,10 @@ class userController {
     }
   }
 
-  async getRole(req: Request, res: Response, next: NextFunction) {
+  async getRole(req: IRequestWithUser, res: Response, next: NextFunction) {
     try {
-      const { authorization } = req.headers;
-      if (!authorization) return res.status(400).json('missing authorization');
-      decodeToken(authorization);
-      const { user } = req.body;
+      const { user } = req;
+      if (!user) return res.status(400).json('Invalid authorization');
       const result = await this.service.getRole(user);
       if (!result) {
         return res.status(400).json('Invalid authorization');
