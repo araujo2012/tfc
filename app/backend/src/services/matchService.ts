@@ -1,4 +1,4 @@
-import IMatch from '../interfaces/match';
+import { IMatch, IGoals } from '../interfaces/match';
 import matchModel from '../database/models/Match';
 import Team from '../database/models/Team';
 
@@ -29,6 +29,16 @@ class matchService {
   async createMatch(match: IMatch) {
     const result = await this.model.create(match);
     return result;
+  }
+
+  async matchHaveFinished(id: number) {
+    await this.model.update({ inProgress: 0 }, { where: { id } });
+    return { message: 'Finished' };
+  }
+
+  async updateMatchById(id: number, payload: IGoals) {
+    const match = await this.model.update(payload, { where: { id } });
+    return match;
   }
 }
 
