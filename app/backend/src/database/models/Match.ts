@@ -48,7 +48,7 @@ Match.init({
   // ... Outras configs
   underscored: true,
   sequelize: db,
-  modelName: 'teams',
+  modelName: 'matches',
   timestamps: false,
 });
 
@@ -63,8 +63,8 @@ Match.init({
 // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 
-Match.belongsTo(Team, { foreignKey: 'homeTeam', as: 'home' });
-Match.belongsTo(Team, { foreignKey: 'awayTeam', as: 'away' });
+Match.belongsTo(Team, { foreignKey: 'homeTeam', as: 'teamHome' });
+Match.belongsTo(Team, { foreignKey: 'awayTeam', as: 'teamAway' });
 
 Team.hasMany(Match, { foreignKey: 'homeTeam', as: 'homeMatch' });
 Team.hasMany(Match, { foreignKey: 'awayTeam', as: 'awayMatch' });
