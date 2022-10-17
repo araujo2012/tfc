@@ -17,6 +17,35 @@ class matchController {
       next(error);
     }
   }
+
+  async createMatch(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await this.service.createMatch(req.body);
+      return res.status(201).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async matchHaveFinished(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const result = await this.service.matchHaveFinished(parseInt(id, 10));
+      return res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateMatchById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const result = await this.service.updateMatchById(parseInt(id, 10), req.body);
+      return res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default matchController;
